@@ -20,19 +20,20 @@ export function App() {
     [paginatedTransactions, transactionsByEmployee]
   )
 
-  const hasMore = useMemo(() => {
-    return transactions !== null && !filteredByEmployee && !!paginatedTransactions?.nextPage
-  }, [transactions, filteredByEmployee, paginatedTransactions])
+  const hasMore = useMemo(
+    () => transactions !== null && !filteredByEmployee && !!paginatedTransactions?.nextPage,
+    [transactions, filteredByEmployee, paginatedTransactions]
+  )
 
   const loadAllTransactions = useCallback(async () => {
     setIsLoading(true)
-    transactionsByEmployeeUtils.invalidateData()
+    paginatedTransactionsUtils.invalidateData()
 
     await employeeUtils.fetchAll()
     await paginatedTransactionsUtils.fetchAll()
 
     setIsLoading(false)
-  }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
+  }, [employeeUtils, paginatedTransactionsUtils])
 
   const loadTransactionsByEmployee = useCallback(
     async (employeeId: string) => {
