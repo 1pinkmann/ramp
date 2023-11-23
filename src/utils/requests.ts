@@ -32,6 +32,7 @@ export const getTransactionsPaginated = ({
   }
 
   const nextPage = end < data.transactions.length ? page + 1 : null
+  console.log("load all", data.transactions[0].approved)
 
   return {
     nextPage,
@@ -43,7 +44,7 @@ export const getTransactionsByEmployee = ({ employeeId }: RequestByEmployeeParam
   if (!employeeId) {
     throw new Error("Employee id cannot be empty")
   }
-
+  console.log("load by id", data.transactions[0].approved)
   return data.transactions.filter((transaction) => transaction.employee.id === employeeId)
 }
 
